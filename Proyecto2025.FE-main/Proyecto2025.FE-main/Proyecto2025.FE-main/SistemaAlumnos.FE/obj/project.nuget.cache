@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "ug1313zhJkc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Nehue\\OneDrive\\Desktop\\Proyectos-2025\\Proyecto2025.FE-main\\Proyecto2025.FE-main\\Proyecto2025.FE-main\\SistemaAlumnos.FE\\SistemaAlumnos.FE.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nehue\\.nuget\\packages\\system.io.pipelines\\9.0.10\\system.io.pipelines.9.0.10.nupkg.sha512",
+    "C:\\Users\\Nehue\\.nuget\\packages\\system.net.http.json\\9.0.10\\system.net.http.json.9.0.10.nupkg.sha512",
+    "C:\\Users\\Nehue\\.nuget\\packages\\system.text.encodings.web\\9.0.10\\system.text.encodings.web.9.0.10.nupkg.sha512",
+    "C:\\Users\\Nehue\\.nuget\\packages\\system.text.json\\9.0.10\\system.text.json.9.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}
