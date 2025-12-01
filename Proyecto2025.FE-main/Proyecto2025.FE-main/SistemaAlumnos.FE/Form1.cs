@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace SistemaAlumnos.FE
 {
@@ -43,8 +44,13 @@ namespace SistemaAlumnos.FE
 
             _service = new AlumnoService(httpClient);
 
+            // Inicializar servicio de materias
+            _materiaService = new MateriaService(httpClient);
+            //MateriaService = _materiaService;
+
             // Cargar datos al iniciar
             _ = CargarAlumnosAsync();
+            _ = CargarMateriasAsync();
         }
 
         private void ConfigurarDataGridView()
@@ -141,8 +147,8 @@ namespace SistemaAlumnos.FE
             _idSeleccionado = 0;
 
             btn_Agregaralumno.Enabled = true;
-            btn_Actualizar.Enabled = false;
-            btn_Eliminar.Enabled = false;
+            btn_Actualizar.Enabled = true;
+            btn_Eliminar.Enabled = true;
         }
 
         private bool EsMayorDe16(DateTime fechaNacimiento)
@@ -172,7 +178,7 @@ namespace SistemaAlumnos.FE
             {
                 Nombre = txt_Nombre.Text,
                 Apellido = txt_Apellido.Text,
-                Legajo = txt_Legajo.int,
+                Legajo = txt_Legajo.Text,
                 FechaNacimiento = dtp_FechaNac.Value
             };
 
@@ -252,6 +258,143 @@ namespace SistemaAlumnos.FE
                 btn_Actualizar.Enabled
                     = true;
             }
+        }
+
+        private void Registro_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void dgv_Alumnos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MostrarSeleccionAlumnoYMateria()
+        {
+            var alumnoRow = dgv_Alumnos.CurrentRow;
+            var materiaRow = Dgv_materias.CurrentRow;
+
+            if (alumnoRow == null || materiaRow == null)
+            {
+                MessageBox.Show("Seleccione una fila en 'Alumnos' y otra en 'Materias' antes de continuar.",
+                                "Selección incompleta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string GetCellValue(DataGridViewRow r, string columnName) =>
+                r.Cells[columnName]?.Value?.ToString() ?? "";
+
+            var nombre = GetCellValue(alumnoRow, "Nombre");
+            var apellido = GetCellValue(alumnoRow, "Apellido");
+            var legajo = GetCellValue(alumnoRow, "Legajo");
+            var fechaNac = alumnoRow.Cells["FechaNacimiento"]?.Value is DateTime d
+                ? d.ToString("dd/MM/yyyy")
+                : GetCellValue(alumnoRow, "FechaNacimiento");
+
+            var mId = GetCellValue(materiaRow, "Id");
+            var mNombre = GetCellValue(materiaRow, "Nombre");
+            var mDesc = GetCellValue(materiaRow, "Descripcion");
+
+            var mensaje =
+                $"Alumno: {nombre} {apellido} (Legajo: {legajo})\nFecha Nac.: {fechaNac}\n\n" +
+                $"Materia: {mNombre} (Id: {mId})\nDescripción: {mDesc}";
+
+            MessageBox.Show(mensaje, "Detalle seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Muestra el mensaje con la fila seleccionada de cada tabla
+            MostrarSeleccionAlumnoYMateria();
+
+            // Si además quiere abrir la ventana de materias:
+            EditarMaterias ventana = new EditarMaterias();
+            ventana.Show(); // o ShowDialog() según necesite
+        }
+
+        private void dtp_FechaNac_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_Nombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void textB_materia_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private readonly MateriaService _materiaService;
+
+
+
+        private async Task CargarMateriasAsync()
+        {
+            if (_materiaService == null)
+            {
+                MessageBox.Show("Servicio de materias no inicializado.");
+                return;
+            }
+
+            List<Materia> materias;
+            try
+            {
+                materias = await _materiaService.ObtenerMateriasAsync() ?? new List<Materia>();
+            }
+            catch (System.Net.Http.HttpRequestException hre)
+            {
+                // Mensaje claro para el caso de "conexión denegada"
+                MessageBox.Show("No se pudo conectar con el servidor en http://localhost:5134. " +
+                                "Asegúrese de que la API esté en ejecución y que el puerto/protocolo coincidan.\n\nDetalle: " + hre.Message,
+                                "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                materias = new List<Materia>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener materias: " + ex.Message);
+                materias = new List<Materia>();
+            }
+
+            if (Dgv_materias == null)
+            {
+                MessageBox.Show("Control de materias no disponible.");
+                return;
+            }
+
+            Dgv_materias.DataSource = materias;
+
+            if (Dgv_materias.Columns.Contains("Id"))
+                Dgv_materias.Columns["Id"].HeaderText = "Código";
+            if (Dgv_materias.Columns.Contains("Nombre"))
+                Dgv_materias.Columns["Nombre"].HeaderText = "Materia";
+            if (Dgv_materias.Columns.Contains("Descripcion"))
+                Dgv_materias.Columns["Descripcion"].HeaderText = "Descripción";
+        }
+
+        private void Dgv_materias_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Agregar el manejador en la clase Registro (puede ubicarse cerca de otros manejadores)
+        private void btn_MostrarSeleccion_Click(object sender, EventArgs e)
+        {
+            MostrarSeleccionAlumnoYMateria();
         }
     }
 }

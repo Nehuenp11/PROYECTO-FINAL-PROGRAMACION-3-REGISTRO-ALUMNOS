@@ -58,7 +58,7 @@ public async Task<IActionResult> PutAlumno(int id, Alumno alumno)
     alumnoExistente.Nombre = alumno.Nombre;
     alumnoExistente.Apellido = alumno.Apellido;
     alumnoExistente.FechaNacimiento = alumno.FechaNacimiento;
-    alumnoExistente.CorreoElectronico = alumno.CorreoElectronico;
+
     alumnoExistente.Matricula = alumno.Matricula;
 
     try

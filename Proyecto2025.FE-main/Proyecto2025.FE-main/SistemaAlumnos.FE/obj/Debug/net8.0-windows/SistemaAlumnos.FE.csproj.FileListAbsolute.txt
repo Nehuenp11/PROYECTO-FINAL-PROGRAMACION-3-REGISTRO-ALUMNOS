@@ -48,3 +48,4 @@ C:\Users\Nehue\OneDrive\Desktop\Proyectos-2025\Proyecto2025.FE-main\Proyecto2025
 C:\Users\Nehue\OneDrive\Desktop\Proyectos-2025\Proyecto2025.FE-main\Proyecto2025.FE-main\Proyecto2025.FE-main\SistemaAlumnos.FE\obj\Debug\net8.0-windows\SistemaAlumnos.FE.PORTADA.resources
 C:\Users\Nehue\OneDrive\Desktop\Proyectos-2025\Proyecto2025.FE-main\Proyecto2025.FE-main\Proyecto2025.FE-main\SistemaAlumnos.FE\obj\Debug\net8.0-windows\SistemaAlumnos.FE.Properties.Resources.resources
 C:\Users\Nehue\OneDrive\Desktop\Proyectos-2025\Proyecto2025.FE-main\Proyecto2025.FE-main\Proyecto2025.FE-main\SistemaAlumnos.FE\obj\Debug\net8.0-windows\SistemaAlumnos.FE.Registro.resources
+C:\Users\Nehue\OneDrive\Desktop\Proyectos-2025\Proyecto2025.FE-main\Proyecto2025.FE-main\Proyecto2025.FE-main\SistemaAlumnos.FE\obj\Debug\net8.0-windows\SistemaAlumnos.FE.EditarMaterias.resources

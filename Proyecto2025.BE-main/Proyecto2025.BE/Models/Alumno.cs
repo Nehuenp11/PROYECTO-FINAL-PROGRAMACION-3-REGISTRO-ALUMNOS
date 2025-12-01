@@ -21,10 +21,7 @@ namespace Proyecto2025.BE.Models
         [Column("fecha_nacimiento")]
         public DateTime? FechaNacimiento { get; set; }
 
-        [Column("correo_electronico")]
-        public string? CorreoElectronico { get; set; }
-
-        [Column("matricula")]
+        [Column("legajo")]
         public string? Matricula { get; set; }
     }
 }

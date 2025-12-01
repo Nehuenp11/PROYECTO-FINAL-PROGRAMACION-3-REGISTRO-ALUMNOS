@@ -23,7 +23,8 @@ namespace SistemaAlumnos.FE.Services
             var response = await _httpClient.GetAsync("api/Alumnos");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<List<Alumno>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var alumnos = JsonSerializer.Deserialize<List<Alumno>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return alumnos ?? new List<Alumno>();
         }
 
         // Agregar alumno (POST)
